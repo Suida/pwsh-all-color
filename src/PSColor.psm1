@@ -6,8 +6,7 @@ Add-Type -assemblyname System.ServiceProcess
 . "$PSScriptRoot\ServiceController.ps1"
 . "$PSScriptRoot\MatchInfo.ps1"
 . "$PSScriptRoot\ProcessInfo.ps1"
-
-
+. "$PSScriptRoot\Tools.ps1"
 
 $global:PSColor = @{
     File = @{
@@ -38,6 +37,8 @@ $global:PSColor = @{
     }
 }
 
+Set-PSColor($global:PSColor)
+
 $script:showHeader=$true
 
 New-CommandWrapper Out-Default -Process {
@@ -64,4 +65,4 @@ New-CommandWrapper Out-Default -Process {
     $script:showHeader=$true
 }
 
-Export-ModuleMember
+Export-ModuleMember -Function Set-PSColor, Write-Host-ANSI

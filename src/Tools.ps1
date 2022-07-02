@@ -1,5 +1,5 @@
 $ConsoleColorNames = [Enum]::GetNames([System.ConsoleColor])
-$RGBHex = New-Object System.Text.RegularExpressions.Regex('#[0-9a-f]{6}')
+$RGBHex = New-Object System.Text.RegularExpressions.Regex('#[0-9a-fA-F]{6}')
 
 function Get-RGB() {
     Param (
@@ -56,7 +56,7 @@ function Set-PSColor() {
     }
 }
 
-function Write-Host-ANSI() {
+function Write-HostANSI() {
     Param (
         [Parameter(Mandatory)]
         [string]
@@ -67,10 +67,10 @@ function Write-Host-ANSI() {
         [string[]]
         $Remaining
     )
+    echo fuck
 
     $expr = "Write-Host `"$Color$Content`" " + ($Remaining -Join " ")
-    Write-Host $expr
     Invoke-Expression $expr
 }
 
-Export-ModuleMember -Function Set-PSColor, Write-Host-ANSI
+Export-ModuleMember -Function Set-PSColor, Write-HostANSI

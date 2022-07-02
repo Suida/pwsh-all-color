@@ -10,7 +10,7 @@ Add-Type -assemblyname System.ServiceProcess
 
 $global:PSColor = @{
     File = @{
-        Default    = @{ Color = 'White' }
+        Default    = @{ Color = 'Black' }
         Directory  = @{ Color = 'Cyan'}
         Hidden     = @{ Color = 'DarkGray'; Pattern = '^\.' } 
         Code       = @{ Color = 'Magenta'; Pattern = '\.(java|c|cpp|cs|js|css|html)$' }
@@ -19,21 +19,21 @@ $global:PSColor = @{
         Compressed = @{ Color = 'Green'; Pattern = '\.(zip|tar|gz|rar|jar|war|7z)$' }
     }
     Service = @{
-        Default = @{ Color = 'White' }
+        Default = @{ Color = 'Black' }
         Running = @{ Color = 'DarkGreen' }
         Stopped = @{ Color = 'DarkRed' }     
     }
     Match = @{
-        Default    = @{ Color = 'White' }
+        Default    = @{ Color = 'Black' }
         Path       = @{ Color = 'Cyan'}
         LineNumber = @{ Color = 'Yellow' }
-        Line       = @{ Color = 'White' }
+        Line       = @{ Color = 'Black' }
     }
 	NoMatch = @{
-        Default    = @{ Color = 'White' }
+        Default    = @{ Color = 'Black' }
         Path       = @{ Color = 'Cyan'}
         LineNumber = @{ Color = 'Yellow' }
-        Line       = @{ Color = 'White' }
+        Line       = @{ Color = 'Black' }
     }
 }
 
@@ -65,4 +65,4 @@ New-CommandWrapper Out-Default -Process {
     $script:showHeader=$true
 }
 
-Export-ModuleMember -Function Set-PSColor, Write-Host-ANSI
+Export-ModuleMember -Function Set-PSColor, Write-HostANSI

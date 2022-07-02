@@ -1,3 +1,5 @@
+. "$PSScriptRoot\Tools.ps1"
+
 function PrintContext(){
     param (
     [Parameter(Mandatory=$True)]
@@ -8,11 +10,11 @@ function PrintContext(){
     $start
     )
     $display | foreach { 
-        Write-Host "  ${filename}" -foregroundcolor $global:PSColor.NoMatch.Path.Color -noNewLine
-        Write-Host ":" -foregroundcolor $global:PSColor.NoMatch.Default.Color -NoNewline
-        Write-Host "$start" -foregroundcolor $global:PSColor.NoMatch.LineNumber.Color -noNewLine
-        Write-Host ":" -foregroundcolor $global:PSColor.NoMatch.Default.Color -NoNewline
-        write-host "$_" -foregroundcolor $global:PSColor.NoMatch.Line.Color
+        Write-HostANSI -Content "  ${filename}" -Color $global:PSColor.NoMatch.Path.ANSI  -NoNewline
+        Write-HostANSI -Content ":" -Color $global:PSColor.NoMatch.Default.ANSI  -NoNewline
+        Write-HostANSI -Content "$start" -Color $global:PSColor.NoMatch.LineNumber.ANSI  -NoNewline
+        Write-HostANSI -Content ":" -Color $global:PSColor.NoMatch.Default.ANSI  -NoNewline
+        Write-HostANSI -Content "$_" -Color $global:PSColor.NoMatch.Line.ANSI 
         $start++ 
     }
 }
@@ -24,11 +26,13 @@ function MatchInfo {
     )
     
     if ($match.Context) {PrintContext $match.Context.DisplayPreContext $match.RelativePath($pwd) ($match.LineNumber - $match.Context.DisplayPreContext.Count)}
-    Write-Host '> ' -ForegroundColor $global:PSColor.Match.Default.Color -NoNewline
-    Write-host $match.RelativePath($pwd) -foregroundcolor $global:PSColor.Match.Path.Color -noNewLine
-    Write-host ':' -foregroundcolor $global:PSColor.Match.Default.Color -noNewLine
-    Write-host $match.LineNumber -foregroundcolor $global:PSColor.Match.LineNumber.Color -noNewLine
-    Write-host ':' -foregroundcolor $global:PSColor.Match.Default.Color -noNewLine
-    Write-host $match.Line -foregroundcolor $global:PSColor.Match.Line.Color
+    Write-HostANSI -Content '> ' -Color $global:PSColor.Match.Default.ANSI  -NoNewline
+    Write-HostANSI -Content $match.RelativePath($pwd) -Color $global:PSColor.Match.Path.ANSI  -NoNewline
+    Write-HostANSI -Content ':' -Color $global:PSColor.Match.Default.ANSI  -NoNewline
+    Write-HostANSI -Content $match.LineNumber -Color $global:PSColor.Match.LineNumber.ANSI  -NoNewline
+    Write-HostANSI -Content ':' -Color $global:PSColor.Match.Default.ANSI  -NoNewline
+    Write-HostANSI -Content $match.Line -Color $global:PSColor.Match.Line.ANSI 
     if ($match.Context) {PrintContext $match.Context.DisplayPostContext $match.RelativePath($pwd) ($match.LineNumber + 1)}
 }
+
+# %s/[Ww]rite-[Hh]ost\s*\(.\{-\}\)\s-[fF]oreground[Cc]olor\s*\(.\{-\}\)\.Color\(.*\)/Write-HostANSI -Content \1 -Color \2.ANSI \3/
